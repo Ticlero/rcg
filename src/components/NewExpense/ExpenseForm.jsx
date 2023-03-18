@@ -57,17 +57,27 @@ const ExpenseForm = (props) => {
     // });
   };
 
+  const initForm = () => {
+    setEnteredTitle("");
+    setEnteredAmount("");
+    setEnteredDate("");
+  };
+
   const submitHandler = (event) => {
     event.preventDefault();
     const expenseData = {
       title: enteredTitle,
-      amount: enteredAmount,
+      amount: +enteredAmount,
       date: new Date(enteredDate),
     };
     props.onSaveExpenseData(expenseData);
-    setEnteredTitle("");
-    setEnteredAmount("");
-    setEnteredDate("");
+    props.setClicked(false);
+    initForm();
+  };
+
+  const cancleButtonHandler = (event) => {
+    props.setClicked(false);
+    initForm();
   };
 
   return (
@@ -103,6 +113,9 @@ const ExpenseForm = (props) => {
         </div>
       </div>
       <div className="new-expense__actions">
+        <button type="button" onClick={cancleButtonHandler}>
+          Cancle
+        </button>
         <button type="submit">Add Expense</button>
       </div>
     </form>
